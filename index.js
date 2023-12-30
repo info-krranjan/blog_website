@@ -21,6 +21,20 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
 
+// Sample AI-related posts
+const samplePosts = [
+    // ... (same as before)
+];
+
+// Populate the database with sample posts
+Post.insertMany(samplePosts, (err) => {
+    if (err) {
+        console.error(err);
+    } else {
+        console.log('Sample posts added to the database');
+    }
+});
+
 // Routes
 app.get('/', async (req, res) => {
     const posts = await Post.find();
@@ -30,6 +44,17 @@ app.get('/', async (req, res) => {
 app.get('/post/:id', async (req, res) => {
     const post = await Post.findById(req.params.id);
     res.render('post', { post });
+});
+
+app.get('/write', (req, res) => {
+    res.render('write');
+});
+
+app.post('/write', async (req, res) => {
+    const { title, content } = req.body;
+    const newPost = new Post({ title, content });
+    await newPost.save();
+    res.redirect('/');
 });
 
 // Start the server

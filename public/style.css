@@ -18,3 +18,14 @@ h1 {
     padding: 10px;
     width: 300px;
 }
+
+.write-button {
+    display: block;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+}
